@@ -46,14 +46,13 @@ export async function startSubBot(msg, client, caption = '', isCode = false, pho
   const sessionFolder = path.join(subsPath, id);
   const senderId = msg?.sender;
   const { state, saveCreds: saveCredsDB } = await useMultiFileAuthState(sessionFolder);
-  const { version } = await fetchLatestBaileysVersion();
   let saveCredsTimer = null;
   const saveCreds = () => { clearTimeout(saveCredsTimer); saveCredsTimer = setTimeout(saveCredsDB, 2000); };
   const msgStore = new Map();
   const msgLimit = 500;
   console.info = () => {};
   const socks = makeWASocket({
-    version,
+    version: [2, 3000, 1044006379],
     logger: pino({ level: 'silent' }),
     printQRInTerminal: false,
     browser: Browsers.windows('Chrome'),
